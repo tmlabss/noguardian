@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <base target="_parent">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+   <style>
+       @import url('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
+
+       body {
+           font-family: Arial, sans-serif;
+           margin: 0;
+           padding: 0;
+       }
+       #frame {
+           position: fixed;
+           top: 0;
+           left: 0;
+           bottom: 0;
+           right: 0;
+           width: 100%;
+           height: 100%;
+           border: none;
+           margin: 0;
+           padding: 0;
+           overflow: hidden;
+           z-index: 999999;
+       }
+       #fullscreen-btn {
+           position: fixed;
+           bottom: 20px;
+           right: 20px;
+           background-color: rgba(0, 0, 0, 0.5);
+           color: white;
+           padding: 10px;
+           cursor: pointer;
+           z-index: 1000000;
+           transition: background-color 0.3s;
+       }
+       #fullscreen-btn:hover {
+           background-color: rgba(0, 0, 0, 0.7);
+       }
+   </style>
+</head>
+<body>
+   <iframe id="frame" src="<?= gameUrl ?>"></iframe>
+   
+   <div id="fullscreen-btn" class="flex items-center justify-center rounded shadow-lg">
+       <i class="fas fa-expand fa-lg"></i>
+   </div>
+
+   <script>
+       const fullscreenBtn = document.getElementById('fullscreen-btn');
+       const iframe = document.getElementById('frame');
+       
+       fullscreenBtn.addEventListener('click', () => {
+           if (!document.fullscreenElement) {
+               iframe.requestFullscreen().catch(err => {
+                   alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+               });
+           } else {
+               document.exitFullscreen();
+           }
+       });
+   </script>
+</body>
+</html>
